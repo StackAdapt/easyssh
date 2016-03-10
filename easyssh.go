@@ -41,7 +41,7 @@ func getKeyFile(keypath string) (ssh.Signer, error) {
 		return nil, err
 	}
 
-	file := usr.HomeDir + keypath
+	file := keypath
 	buf, err := ioutil.ReadFile(file)
 	if err != nil {
 		return nil, err
