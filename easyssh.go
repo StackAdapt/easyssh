@@ -41,6 +41,7 @@ func getKeyFile(keypath string) (ssh.Signer, error) {
 		return nil, err
 	}
 
+	_ = usr
 	file := keypath
 	buf, err := ioutil.ReadFile(file)
 	if err != nil {
@@ -75,8 +76,9 @@ func (ssh_conf *MakeConfig) connect() (*ssh.Session, error) {
 	}
 
 	config := &ssh.ClientConfig{
-		User: ssh_conf.User,
-		Auth: auths,
+		User:            ssh_conf.User,
+		Auth:            auths,
+		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
 	}
 
 	client, err := ssh.Dial("tcp", ssh_conf.Server+":"+ssh_conf.Port, config)
